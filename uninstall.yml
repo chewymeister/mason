@@ -1,0 +1,13 @@
+packages: 
+- name: "macvim"
+  install: "brew uninstall macvim"
+- name: "zsh"
+  install: "brew uninstall zsh"
+- name: "yeti"
+  install: "brew uninstall yeti"
+- name: "wumpus"
+  install: "brew uninstall wumpus"
+- name: "tomcat"
+  install: "brew uninstall tomcat"
+- name: "tor"
+  install: "brew uninstall tor"

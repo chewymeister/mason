@@ -1,0 +1,13 @@
+packages: 
+- name: "macvim"
+  install: "brew install macvim"
+- name: "zsh"
+  install: "brew install zsh"
+- name: "yeti"
+  install: "brew install yeti"
+- name: "wumpus"
+  install: "brew install wumpus"
+- name: "tomcat"
+  install: "brew install tomcat"
+- name: "tor"
+  install: "brew install tor"
