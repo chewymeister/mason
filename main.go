@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"strings"
 	"sync"
+	"time"
 
 	"gopkg.in/yaml.v2"
 )
@@ -28,12 +29,16 @@ func parseConfig(path string) (config *Config, err error) {
 	}
 
 	err = yaml.Unmarshal(contents, &config)
-
 	if err != nil {
 		return
 	}
 
 	return
+}
+
+func timeTrack(start time.Time, name string) {
+	elapsed := time.Since(start)
+	fmt.Printf("\n\n%s took %s\n\n", name, elapsed)
 }
 
 func main() {
@@ -49,8 +54,6 @@ func main() {
 		cmdArgs := strings.Split(pkg.Install, " ")
 		cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...)
 		commands = append(commands, cmd)
-
-		fmt.Println("Install package: ", pkg.Name)
 	}
 
 	wg := new(sync.WaitGroup)
@@ -59,8 +62,21 @@ func main() {
 	for _, cmd := range commands {
 		go func(cmd *exec.Cmd) {
 			defer wg.Done()
-			results, _ := cmd.CombinedOutput()
-			fmt.Println(string(results))
+			output, _ := cmd.CombinedOutput()
+			fmt.Println(string(output))
+			// startTime := time.Now()
+
+			// err := cmd.Run()
+
+			// if err != nil {
+			// 	fmt.Printf("%s is failing: %s\n", cmd.Args[len(cmd.Args)-1], err)
+			// 	output, _ := cmd.Output()
+			// 	fmt.Println(string(output))
+			// }
+
+			// elapsed := time.Since(startTime)
+			// cmdName := cmd.Args[len(cmd.Args)-1]
+			// fmt.Printf("%s took %s\n", cmdName, elapsed)
 		}(cmd)
 	}
 
